@@ -1,12 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-		<title>某某科技</title>
-		<meta name="keywords" content="某某科技" />
-		<meta name="description" content="某某科技" />
+		<title>ææç§æ</title>
+		<meta name="keywords" content="ææç§æ" />
+		<meta name="description" content="ææç§æ" />
 		<link href="Css/layout.css" rel="stylesheet" type="text/css">
 		<link href="Css/login.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="Js/jquery-1.7.2.min.js"></script>
@@ -14,7 +16,7 @@
 	</head>
 
 	<body class="login-bg">
-		<!--登录-->
+		<!--ç»å½-->
 		<div class="main login-dom">
 			<div class="successDom">
 				<div class="four-top">
@@ -24,15 +26,15 @@
 					</div>
 					</a>
 					<div class="logo-color margin-big-top text-big text-center">
-						退出成功
+						éåºæå
 					</div>
 					<div class="logo-color margin-big-top text-center text-small">
-						<a class="text-white" id="href" href="#"> 页面正在跳转，请稍等 <b id="wait">2</a></b>
+						<a class="text-white" id="href" href="#"> é¡µé¢æ­£å¨è·³è½¬ï¼è¯·ç¨ç­ <b id="wait">2</a></b>
 					</div>
 				</div>
 			</div>
 			<div class="footer text-center text-small ">
-						Copyright 2013-2016 某某科技有限公司 版权所有 滇ICP备13005806号
+						Copyright 2013-2016 ææç§ææéå¬å¸ çæææ æ»ICPå¤13005806å·
 				<span class="margin-left margin-right">|</span>
 			</div>
 			<div class="popupDom">
