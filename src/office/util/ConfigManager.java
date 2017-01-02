@@ -23,13 +23,12 @@ public class ConfigManager {
 
 	public static ConfigManager instance() {
 		if (config == null) {
-			new ConfigManager();
+			config = new ConfigManager();
 		}
 		return config;
 	}
 
 	public String getVal(String key) {
-		System.out.println("asdf");
 		return properties.getProperty(key);
 
 	}

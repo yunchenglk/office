@@ -39,14 +39,17 @@ public class deptServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException { 
+			throws ServletException, IOException {
 		dept entity = new dept();
-		//entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
+		// entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
 		entity.setDept_name(request.getParameter("dept_name"));
 		entity.setDept_fid(Integer.parseInt(request.getParameter("dept_fid")));
 		entity.setDept_description(request.getParameter("dept_desc"));
-		System.out.println("psot");
-		deptService.instance().Add(entity);
+		deptService db = new deptService();
+		if (db.Add(entity))
+			response.sendRedirect("jsp/dept.jsp");
+		else
+			response.sendRedirect("jsp/index.jsp");
 	}
 
 }

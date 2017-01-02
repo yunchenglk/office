@@ -6,11 +6,11 @@
 		<div class="sidebar-nav">
 			<div class="sidebar-title">
 				<a href="#"> <span class="icon"><b
-						class="fl icon-arrow-down"></b></span> <span class="text-normal">产品与服务</span>
+						class="fl icon-arrow-down"></b></span> <span class="text-normal">基础信息设置</span>
 				</a>
 			</div>
 			<ul class="sidebar-trans">
-				<li><a href="dept_edit.jsp"> <b class="sidebar-icon"><img
+				<li><a href="dept.jsp"> <b class="sidebar-icon"><img
 							src="../Images/icon_author.png" width="16" height="16" /></b> <span
 						class="text-normal">部门管理</span>
 				</a></li>
@@ -61,3 +61,14 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(".sidebar-title").live('click', function() {
+		if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
+			$(this).next().slideDown(200);
+			$(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
+		} else {
+			$(this).next().slideUp(200);
+			$(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
+		}
+	});
+</script>

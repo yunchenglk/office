@@ -15,7 +15,8 @@
 				<div class="manage-head">
 					<h6 class="padding-left manage-head-con">编辑部门</h6>
 				</div>
-				<form name="setp0" action="<%=request.getContextPath() %>/deptAdd" method="post" autocomplete="off">
+				<form name="setp0" action="<%=request.getContextPath()%>/deptAdd"
+					method="post" autocomplete="off">
 					<div class="basic-info-detail clearfix">
 						<div class="unit-style padding-big-lr clearfix">
 							<h4 class="real-name-head margin-large-top">
@@ -33,8 +34,9 @@
 								<div class="real-name-con height-main margin-top-25 clearfix">
 									<p class="content-left-zoon">上级部门</p>
 									<div class="content-right-zoon">
-										<input class="width-main input" type="text" name="dept_fid"
-											value="">
+										<select class="width-main input">
+											<option></option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -59,7 +61,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
-
+	</div> 
 </body>
 </html>

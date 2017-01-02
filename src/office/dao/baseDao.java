@@ -14,8 +14,7 @@ public class baseDao {
 	private PreparedStatement ps;
 
 	public boolean getConnection() {
-		try {
-			System.out.println(ConfigManager.instance().getVal("jdbc.class"));
+		try { 
 			Class.forName(ConfigManager.instance().getVal("jdbc.class"));
 			conn = DriverManager.getConnection(ConfigManager.instance().getVal("jdbc.conn.url"),
 					ConfigManager.instance().getVal("jdbc.conn.username"),
