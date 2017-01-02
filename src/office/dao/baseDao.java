@@ -15,6 +15,7 @@ public class baseDao {
 
 	public boolean getConnection() {
 		try {
+			System.out.println(ConfigManager.instance().getVal("jdbc.class"));
 			Class.forName(ConfigManager.instance().getVal("jdbc.class"));
 			conn = DriverManager.getConnection(ConfigManager.instance().getVal("jdbc.conn.url"),
 					ConfigManager.instance().getVal("jdbc.conn.username"),
@@ -62,33 +63,34 @@ public class baseDao {
 		return updateRow;
 
 	}
-	public boolean closeResouce(){
-		if(ps != null){
+
+	public boolean closeResouce() {
+		if (ps != null) {
 			try {
 				ps.close();
-			} catch (SQLException e) { 
+			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
 			}
 		}
-		if(rs != null){
+		if (rs != null) {
 			try {
 				rs.close();
-			} catch (SQLException e) { 
+			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
 			}
 		}
-		if(conn != null){
+		if (conn != null) {
 			try {
 				conn.close();
-			} catch (SQLException e) { 
+			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
 			}
 		}
 		return true;
-		
+
 	}
 
 }

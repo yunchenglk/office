@@ -29,6 +29,7 @@ public class ConfigManager {
 	}
 
 	public String getVal(String key) {
+		System.out.println("asdf");
 		return properties.getProperty(key);
 
 	}
