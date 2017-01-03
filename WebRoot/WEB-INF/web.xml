@@ -18,6 +18,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>deptAdd</servlet-name>
-		<url-pattern>/deptAdd</url-pattern>
+		<url-pattern>/dept.do</url-pattern>
 	</servlet-mapping>
 </web-app>

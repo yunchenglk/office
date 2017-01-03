@@ -43,6 +43,15 @@
 								class="fr margin-large-right padding-top text-small text-normal">最新版本：<em
 								class="text-main">2.4.0.160708</em></span>
 						</h6>
+
+					</div>
+					<div class="info-center-con">
+						<div class=" info-center-title h5 margin-big-top clearfix">
+							<span class="fl padding-large-right manage-title"><a
+								href="dept.jsp">部门列表</a></span> <span class="fl padding-large-right"><a
+								href="dept_edit.jsp">添加部门</a></span>
+						</div>
+						<p style="width: 56px; left: 20px;" class="solid-slider"></p>
 					</div>
 				</div>
 				<div class="authority-content">

@@ -58,4 +58,24 @@ public class deptDao extends baseDao {
 		return list;
 	}
 
+	public List<dept> getParentList() { 
+		List<dept> list = new ArrayList<dept>();
+		String sql = "SELECT * FROM DEPT WHERE DEPT_FID = ?";
+		Object[] params = { 0 };
+		ResultSet rs = this.executeQuery(sql, params);
+		try {
+			while (rs.next()) {
+				dept entity = new dept();
+				entity.setDept_id(rs.getInt(1));
+				entity.setDept_name(rs.getString(2));
+				entity.setDept_fid(rs.getInt(3));
+				entity.setDept_description(rs.getString(4));
+				list.add(entity);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

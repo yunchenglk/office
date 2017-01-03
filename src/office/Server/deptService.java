@@ -1,5 +1,6 @@
 package office.Server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import office.dao.deptDao;
@@ -22,6 +23,9 @@ public class deptService {
 
 	public List<dept> getPage(int pageIndex, int pageSize) {
 		return dao.getPageList(pageIndex, pageSize);
+	}
 
+	public List<dept> getFirstList() {
+		return dao.getParentList();
 	}
 }
