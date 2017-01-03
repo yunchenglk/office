@@ -28,4 +28,8 @@ public class deptService {
 	public List<dept> getFirstList() {
 		return dao.getParentList();
 	}
+
+	public boolean delByID(int id) {
+		return dao.delByID(id);
+	}
 }

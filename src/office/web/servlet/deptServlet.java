@@ -38,8 +38,20 @@ public class deptServlet extends HttpServlet {
 		switch (type) {
 		case "getFid":
 			List<dept> list = db.getFirstList();
-			response.setCharacterEncoding("GBK");
+			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().print(JSONArray.fromObject(list));
+			response.getWriter().flush();
+			response.getWriter().close();
+			break;
+		case "del":
+			String id = request.getParameter("id");
+			int ID = Integer.parseInt(id);
+			boolean result = db.delByID(ID);
+			if (result)
+				response.getWriter().append("操作成功");
+			else
+				response.getWriter().append("操作成功");
+			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().flush();
 			response.getWriter().close();
 			break;
@@ -56,6 +68,7 @@ public class deptServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		dept entity = new dept();
+		request.setCharacterEncoding("utf-8");
 		// entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
 		entity.setDept_name(request.getParameter("dept_name"));
 		entity.setDept_fid(Integer.parseInt(request.getParameter("dept_fid")));

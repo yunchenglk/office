@@ -74,8 +74,8 @@
 								<div class="td w20"><%=entity.getDept_fid()%></div>
 								<div class="td w30"><%=entity.getDept_description()%></div>
 								<div class="td w20">
-									<a href="#" msg="您是否删除此站点，如果删除会影响站点通信导致部分功能无法使用？"
-										callback="del_site(624)" data-id=""
+									<a href="javascript:void(0);" msg="确定删除此信息吗？"
+										callback="del(<%=entity.getDept_id()%>);" data-id=""
 										class="button-word2 btn_ajax_confirm">删除</a>
 								</div>
 							</div>
@@ -109,7 +109,16 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		function del(id) {
+			$.getJSON("../dept.do", {
+				t : 'del',
+				id : id
+			}, function(data) {
+				alert(data);
+			})
+		}
+	</script>
 
 </body>
 </html>

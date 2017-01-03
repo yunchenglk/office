@@ -58,7 +58,7 @@ public class deptDao extends baseDao {
 		return list;
 	}
 
-	public List<dept> getParentList() { 
+	public List<dept> getParentList() {
 		List<dept> list = new ArrayList<dept>();
 		String sql = "SELECT * FROM DEPT WHERE DEPT_FID = ?";
 		Object[] params = { 0 };
@@ -78,4 +78,11 @@ public class deptDao extends baseDao {
 		return list;
 	}
 
+	public boolean delByID(int id) {
+		String sql = "DELETE DEPT WHERE DEPT_ID = ?";
+		Object[] params = { id };
+		int updateRow = this.executeUpdate(sql, params);
+		this.closeResouce();
+		return updateRow > 0;
+	}
 }
