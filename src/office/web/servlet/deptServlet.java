@@ -37,11 +37,8 @@ public class deptServlet extends HttpServlet {
 		String type = request.getParameter("t");
 		switch (type) {
 		case "getFid":
-			List<dept> list = db.getFirstList();
-			response.setContentType("text/html; charset=utf-8");
-			response.getWriter().print(JSONArray.fromObject(list));
-			response.getWriter().flush();
-			response.getWriter().close();
+			List<dept> list = db.getFirstList(); 
+			response.getWriter().print(JSONArray.fromObject(list)); 
 			break;
 		case "del":
 			String id = request.getParameter("id");
@@ -50,14 +47,14 @@ public class deptServlet extends HttpServlet {
 			if (result)
 				response.getWriter().append("操作成功");
 			else
-				response.getWriter().append("操作成功");
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().flush();
-			response.getWriter().close();
+				response.getWriter().append("操作成功"); 
 			break;
 		default:
 			break;
 		}
+		response.setContentType("text/html; charset=utf-8"); 
+		response.getWriter().flush();
+		response.getWriter().close();
 
 	}
 
