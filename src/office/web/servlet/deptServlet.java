@@ -18,27 +18,16 @@ import office.entity.dept;
  */
 @WebServlet("/deptServlet")
 public class deptServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	deptService db = new deptService();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public deptServlet() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html; charset=utf-8");
 		String type = request.getParameter("t");
 		switch (type) {
 		case "getFid":
-			List<dept> list = db.getFirstList(); 
-			response.getWriter().print(JSONArray.fromObject(list)); 
+			List<dept> list = db.getFirstList();
+			response.getWriter().print(JSONArray.fromObject(list));
 			break;
 		case "del":
 			String id = request.getParameter("id");
@@ -47,21 +36,15 @@ public class deptServlet extends HttpServlet {
 			if (result)
 				response.getWriter().append("操作成功");
 			else
-				response.getWriter().append("操作成功"); 
+				response.getWriter().append("操作成功");
 			break;
 		default:
 			break;
 		}
-		response.setContentType("text/html; charset=utf-8"); 
 		response.getWriter().flush();
 		response.getWriter().close();
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		dept entity = new dept();
@@ -69,7 +52,7 @@ public class deptServlet extends HttpServlet {
 		entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
 		entity.setDept_name(request.getParameter("dept_name"));
 		entity.setDept_fid(Integer.parseInt(request.getParameter("dept_fid")));
-		entity.setDept_description(request.getParameter("dept_desc"));
+		entity.setDept_description(request.getParameter("dept_desc")); 
 		if (db.update(entity))
 			response.sendRedirect("jsp/dept.jsp");
 		else
