@@ -13,8 +13,11 @@ public class deptService {
 		dao = new deptDao();
 	}
 
-	public boolean Add(dept entity) {
-		return dao.init(entity);
+	public boolean update(dept entity) {
+		if (entity.getDept_id() == 0)
+			return dao.init(entity);
+		else
+			return dao.update(entity);
 	}
 
 	public int getRowCount() {
@@ -31,5 +34,9 @@ public class deptService {
 
 	public boolean delByID(int id) {
 		return dao.delByID(id);
+	}
+
+	public dept getByID(int id) {
+		return dao.getByID(id);
 	}
 }

@@ -85,4 +85,33 @@ public class deptDao extends baseDao {
 		this.closeResouce();
 		return updateRow > 0;
 	}
+
+	public dept getByID(int id) {
+		dept entity = new dept();
+		String sql = "SELECT dept_id,dept_name,dept_fid,dept_description FROM DEPT where dept_id = ?";
+		Object[] params = { id };
+		ResultSet rs = this.executeQuery(sql, params);
+		try {
+			while (rs.next()) {
+				entity.setDept_id(rs.getInt(1));
+				entity.setDept_name(rs.getString(2));
+				entity.setDept_fid(rs.getInt(3));
+				entity.setDept_description(rs.getString(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			this.closeResouce();
+		}
+		return entity;
+	}
+
+	public boolean update(dept entity) {
+		String sql = "UPDATE DEPT SET DEPT_NAME=?,DEPT_FID=?,dept_description=? WHERE DEPT_ID=?";
+		Object[] params = { entity.getDept_name(), entity.getDept_fid(), entity.getDept_description(),
+				entity.getDept_id() };
+		int updateRow = this.executeUpdate(sql, params);
+		this.closeResouce();
+		return updateRow > 0; 
+	}
 }

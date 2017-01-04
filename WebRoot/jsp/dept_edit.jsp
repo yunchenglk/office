@@ -1,5 +1,7 @@
+<%@page import="office.entity.dept"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:useBean id="db" class="office.Server.deptService" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,10 +9,18 @@
 <title>部门编辑</title>
 </head>
 <body>
+	<%
+		String id = request.getParameter("id");
+		dept entity = new dept();
+		if (id != null) {
+			entity = db.getByID(Integer.parseInt(id));
+		}
+	%>
 	<jsp:include page="top.jsp" />
 	<div class="view-body">
 		<jsp:include page="left.jsp" />
 		<div class="view-product">
+
 			<div class="company_identify">
 				<div class="manage-head">
 					<h6 class="padding-left manage-head-con">编辑部门</h6>
@@ -25,7 +35,8 @@
 				</div>
 				<form name="setp0" action="<%=request.getContextPath()%>/dept.do"
 					method="post" autocomplete="off">
-					<input type="hidden" value="0" name="dept_id" />
+					<input type="hidden" value="<%=entity.getDept_id()%>"
+						name="dept_id" />
 					<div class="basic-info-detail clearfix" style="margin-top: 20px;">
 						<div class="unit-style padding-big-lr clearfix">
 							<h4 class="real-name-head margin-large-top">
@@ -36,7 +47,7 @@
 								<p class="content-left-zoon">部门名称</p>
 								<div class="content-right-zoon">
 									<input class="width-main input" type="text" datatype="*"
-										name="dept_name" value="">
+										name="dept_name" value="<%=entity.getDept_name()%>">
 								</div>
 							</div>
 							<div class="normal_licence clearfix">
@@ -44,7 +55,6 @@
 									<p class="content-left-zoon">上级部门</p>
 									<div class="content-right-zoon">
 										<select class="width-main input" id="sel_fid" name="dept_fid">
-
 										</select>
 									</div>
 								</div>
@@ -54,7 +64,7 @@
 								<div class="content-right-zoon">
 									<textarea
 										class="width-main height-large border-gray-around textarea"
-										name="dept_desc"></textarea>
+										name="dept_desc"><%=entity.getDept_description()%></textarea>
 								</div>
 							</div>
 

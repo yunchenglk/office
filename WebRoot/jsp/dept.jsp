@@ -69,14 +69,16 @@
 							%>
 							<div class="tr clearfix border-bottom-none">
 								<div class="td w10"><%=entity.getDept_id()%></div>
-								<div class="td w20"><%=entity.getDept_name()%>门
+								<div class="td w20"><%=entity.getDept_name()%>
 								</div>
 								<div class="td w20"><%=entity.getDept_fid()%></div>
 								<div class="td w30"><%=entity.getDept_description()%></div>
 								<div class="td w20">
-									<a href="javascript:void(0);" msg="确定删除此信息吗？"
-										callback="del(<%=entity.getDept_id()%>);" data-id=""
-										class="button-word2 btn_ajax_confirm">删除</a>
+									<a
+										href="<%=request.getContextPath()%>/jsp/dept_edit.jsp?id=<%=entity.getDept_id()%>"
+										class="button-word2 ">编辑</a> <a href="javascript:void(0);"
+										msg="确定删除此信息吗？" callback="del(<%=entity.getDept_id()%>);"
+										data-id="" class="button-word2 btn_ajax_confirm">删除</a>
 								</div>
 							</div>
 							<%

@@ -69,12 +69,11 @@ public class deptServlet extends HttpServlet {
 			throws ServletException, IOException {
 		dept entity = new dept();
 		request.setCharacterEncoding("utf-8");
-		// entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
+		entity.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
 		entity.setDept_name(request.getParameter("dept_name"));
 		entity.setDept_fid(Integer.parseInt(request.getParameter("dept_fid")));
 		entity.setDept_description(request.getParameter("dept_desc"));
-		// deptService db = new deptService();
-		if (db.Add(entity))
+		if (db.update(entity))
 			response.sendRedirect("jsp/dept.jsp");
 		else
 			response.sendRedirect("jsp/index.jsp");

@@ -8,6 +8,13 @@ public class dept implements Serializable {
 	private int dept_fid;
 	private String dept_description;
 
+	public dept() {
+		dept_id = 0;
+		dept_name = "";
+		dept_fid = 0;
+		dept_description = "";
+	}
+
 	public int getDept_id() {
 		return dept_id;
 	}
