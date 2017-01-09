@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import office.entity.dept;
+import office.entity.DEPT;
 import office.util.Page;
 
 public class deptDao extends baseDao {
 
-	public boolean init(dept entity) {
+	public boolean init(DEPT entity) {
 		String sql = "INSERT INTO DEPT VALUES(NULL,?,?,?)";
-		Object[] params = { entity.getDept_name(), entity.getDept_fid(), entity.getDept_description() };
+		Object[] params = { entity.getDEPT_NAME(), entity.getDEPT_FID(), entity.getDEPT_DESCRIPTION() };
 		int updateRow = this.executeUpdate(sql, params);
 		this.closeResouce();
 		return updateRow > 0;
@@ -35,8 +35,8 @@ public class deptDao extends baseDao {
 		return rowCount;
 	}
 
-	public List<dept> getPageList(int pageIndex, int pageSize) {
-		List<dept> list = new ArrayList<dept>();
+	public List<DEPT> getPageList(int pageIndex, int pageSize) {
+		List<DEPT> list = new ArrayList<DEPT>();
 		String sql = "select dept_id, dept_name, dept_fid, dept_description from (select d.dept_id,d.dept_name,d.dept_fid,d.dept_description,ROWNUM rn  from dept d) a where a.rn >= ?   and a.rn <= ?";
 		Page page = new Page();
 		page.setPageIndex(pageIndex);
@@ -45,11 +45,11 @@ public class deptDao extends baseDao {
 		ResultSet rs = this.executeQuery(sql, params);
 		try {
 			while (rs.next()) {
-				dept entity = new dept();
-				entity.setDept_id(rs.getInt(1));
-				entity.setDept_name(rs.getString(2));
-				entity.setDept_fid(rs.getInt(3));
-				entity.setDept_description(rs.getString(4));
+				DEPT entity = new DEPT();
+				entity.setDEPT_ID(rs.getInt(1));
+				entity.setDEPT_NAME(rs.getString(2));
+				entity.setDEPT_FID(rs.getInt(3));
+				entity.setDEPT_DESCRIPTION(rs.getString(4));
 				list.add(entity);
 			}
 		} catch (SQLException e) {
@@ -60,18 +60,18 @@ public class deptDao extends baseDao {
 		return list;
 	}
 
-	public List<dept> getParentList() {
-		List<dept> list = new ArrayList<dept>();
+	public List<DEPT> getParentList() {
+		List<DEPT> list = new ArrayList<DEPT>();
 		String sql = "SELECT * FROM DEPT WHERE DEPT_FID = ?";
 		Object[] params = { 0 };
 		ResultSet rs = this.executeQuery(sql, params);
 		try {
 			while (rs.next()) {
-				dept entity = new dept();
-				entity.setDept_id(rs.getInt(1));
-				entity.setDept_name(rs.getString(2));
-				entity.setDept_fid(rs.getInt(3));
-				entity.setDept_description(rs.getString(4));
+				DEPT entity = new DEPT();
+				entity.setDEPT_ID(rs.getInt(1));
+				entity.setDEPT_NAME(rs.getString(2));
+				entity.setDEPT_FID(rs.getInt(3));
+				entity.setDEPT_DESCRIPTION(rs.getString(4));
 				list.add(entity);
 			}
 		} catch (SQLException e) {
@@ -90,17 +90,17 @@ public class deptDao extends baseDao {
 		return updateRow > 0;
 	}
 
-	public dept getByID(int id) {
-		dept entity = new dept();
+	public DEPT getByID(int id) {
+		DEPT entity = new DEPT();
 		String sql = "SELECT dept_id,dept_name,dept_fid,dept_description FROM DEPT where dept_id = ?";
 		Object[] params = { id };
 		ResultSet rs = this.executeQuery(sql, params);
 		try {
 			while (rs.next()) {
-				entity.setDept_id(rs.getInt(1));
-				entity.setDept_name(rs.getString(2));
-				entity.setDept_fid(rs.getInt(3));
-				entity.setDept_description(rs.getString(4));
+				entity.setDEPT_ID(rs.getInt(1));
+				entity.setDEPT_NAME(rs.getString(2));
+				entity.setDEPT_FID(rs.getInt(3));
+				entity.setDEPT_DESCRIPTION(rs.getString(4));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -110,10 +110,10 @@ public class deptDao extends baseDao {
 		return entity;
 	}
 
-	public boolean update(dept entity) {
+	public boolean update(DEPT entity) {
 		String sql = "UPDATE DEPT SET DEPT_NAME=?,DEPT_FID=?,dept_description=? WHERE DEPT_ID=?";
-		Object[] params = { entity.getDept_name(), entity.getDept_fid(), entity.getDept_description(),
-				entity.getDept_id() };
+		Object[] params = { entity.getDEPT_NAME(), entity.getDEPT_FID(), entity.getDEPT_DESCRIPTION(),
+				entity.getDEPT_ID() };
 		int updateRow = this.executeUpdate(sql, params);
 		this.closeResouce();
 		return updateRow > 0; 

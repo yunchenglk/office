@@ -1,4 +1,4 @@
-<%@page import="office.entity.dept"%>
+<%@page import="office.entity.DEPT"%>
 <%@page import="java.util.List"%>
 <%@page import="office.util.Page"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -30,10 +30,9 @@
 		else if (pageIndex >= countPage)
 			pageIndex = countPage;
 
-		List<dept> list = db.getPage(pageIndex, pageSize);
-		//request.setAttribute("list", list);
+		List<DEPT> list = db.getPage(pageIndex, pageSize);
+		request.setAttribute("list", list);
 	%>
-	<x:set var="list" value="<%=list%>" scope="request" />
 	<jsp:include page="top.jsp" />
 	<div class="view-body">
 		<jsp:include page="left.jsp" />
@@ -69,19 +68,18 @@
 								<div class="th w20">操作</div>
 							</div>
 							<x:forEach var="entity" items="${list}" varStatus="status">
-
 								<div class="tr clearfix border-bottom-none">
-									<div class="td w10">${entity.dept_id }</div>
-									<div class="td w20">${entity.dept_name }</div>
-									<div class="td w20">${entity.dept_fid }</div>
+									<div class="td w10">${entity.DEPT_ID }</div>
+									<div class="td w20">${entity.DEPT_NAME }</div>
+									<div class="td w20">${entity.DEPT_FID }</div>
 									<div class="td w30">
-										<x:out value="${entity.dept_description }" default="无" />
+										<x:out value="${entity.DEPT_DESCRIPTION }" default="无" />
 									</div>
 									<div class="td w20">
 										<a
-											href="<%=request.getContextPath()%>/jsp/dept_edit.jsp?id=${entity.dept_id }"
+											href="<%=request.getContextPath()%>/jsp/dept_edit.jsp?id=${entity.DEPT_ID }"
 											class="button-word2 ">编辑</a> <a href="javascript:void(0);"
-											msg="确定删除此信息吗？" callback="del(${entity.dept_id });"
+											msg="确定删除此信息吗？" callback="del(${entity.DEPT_ID });"
 											class="button-word2 btn_ajax_confirm">删除</a>
 									</div>
 								</div>
@@ -89,7 +87,8 @@
 						</div>
 					</div>
 					<x:import url="rollPage.jsp">
-						<x:param name="totalCount" value="<%=Integer.toString(totalCount)%>"></x:param>
+						<x:param name="totalCount"
+							value="<%=Integer.toString(totalCount)%>"></x:param>
 						<x:param name="pageIndex" value="<%=Integer.toString(pageIndex)%>"></x:param>
 						<x:param name="pageSize" value="<%=Integer.toString(pageSize)%>"></x:param>
 						<x:param name="countPage" value="<%=Integer.toString(countPage)%>"></x:param>

@@ -1,10 +1,9 @@
 package office.Server;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import office.dao.deptDao;
-import office.entity.dept;
+import office.entity.DEPT;
 
 public class deptService {
 	private static deptDao dao;
@@ -13,8 +12,8 @@ public class deptService {
 		dao = new deptDao();
 	}
 
-	public boolean update(dept entity) {
-		if (entity.getDept_id() == 0)
+	public boolean update(DEPT entity) {
+		if (entity.getDEPT_ID() == 0)
 			return dao.init(entity);
 		else
 			return dao.update(entity);
@@ -24,11 +23,11 @@ public class deptService {
 		return dao.getRowCount();
 	}
 
-	public List<dept> getPage(int pageIndex, int pageSize) {
+	public List<DEPT> getPage(int pageIndex, int pageSize) {
 		return dao.getPageList(pageIndex, pageSize);
 	}
 
-	public List<dept> getFirstList() {
+	public List<DEPT> getFirstList() {
 		return dao.getParentList();
 	}
 
@@ -36,7 +35,7 @@ public class deptService {
 		return dao.delByID(id);
 	}
 
-	public dept getByID(int id) {
+	public DEPT getByID(int id) {
 		return dao.getByID(id);
 	}
 }

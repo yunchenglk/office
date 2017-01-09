@@ -1,15 +1,16 @@
-<%@page import="office.entity.dept"%>
+<%@page import="office.entity.DEPT"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="db" class="office.Server.deptService" />
 <%
 	String id = request.getParameter("id");
-	dept entity = new dept();
+
+	DEPT entity = new DEPT();
 	if (id != null) {
 		entity = db.getByID(Integer.parseInt(id));
 	}
 	request.setAttribute("dept", entity);
-%> 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,9 +36,9 @@
 					</div>
 					<p style="width: 56px; left: 105px;" class="solid-slider"></p>
 				</div>
-				<form name="setp0" action="<%=request.getContextPath()%>/dept.do"
-					method="post" autocomplete="off">
-					<input type="hidden" value="${dept.dept_id }" name="dept_id" />
+				<form name="setp0" action="../add" method="post" autocomplete="off">
+					<input type="hidden" name="dbname" value="dept" /> <input
+						type="hidden" value="${dept.DEPT_ID }" name="DEPT_ID" />
 					<div class="basic-info-detail clearfix" style="margin-top: 20px;">
 						<div class="unit-style padding-big-lr clearfix">
 							<h4 class="real-name-head margin-large-top">
@@ -48,14 +49,14 @@
 								<p class="content-left-zoon">部门名称</p>
 								<div class="content-right-zoon">
 									<input class="width-main input" type="text" datatype="*"
-										name="dept_name" value="${dept.dept_name}">
+										name="DEPT_NAME" value="${dept.DEPT_NAME}">
 								</div>
 							</div>
 							<div class="normal_licence clearfix">
 								<div class="real-name-con height-main margin-top-25 clearfix">
 									<p class="content-left-zoon">上级部门</p>
 									<div class="content-right-zoon">
-										<select class="width-main input" id="sel_fid" name="dept_fid">
+										<select class="width-main input" id="sel_fid" name="DEPT_FID">
 										</select>
 									</div>
 								</div>
@@ -65,7 +66,7 @@
 								<div class="content-right-zoon">
 									<textarea
 										class="width-main height-large border-gray-around textarea"
-										name="dept_desc">${dept.dept_description }</textarea>
+										name="DEPT_DESCRIPTION">${dept.DEPT_DESCRIPTION }</textarea>
 								</div>
 							</div>
 
@@ -94,11 +95,11 @@
 				success : function(data) {
 					var options = '<option value=0>顶级部门</option>';
 					$.each(data, function(i, n) {
-						options += "<option value='"+n.dept_id+"'>"
-								+ n.dept_name + "</option>";
+						options += "<option value='"+n.DEPT_ID+"'>"
+								+ n.DEPT_NAME + "</option>";
 					});
 					$("#sel_fid").html(options);
-					$("#sel_fid").val(${dept.dept_fid})
+					$("#sel_fid").val(${dept.DEPT_FID} );
 				}
 
 			})
