@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import office.entity.DEPT;
 import office.util.ConfigManager;
 
 public class baseDao {
@@ -14,7 +15,7 @@ public class baseDao {
 	private PreparedStatement ps;
 
 	public boolean getConnection() {
-		try { 
+		try {
 			Class.forName(ConfigManager.instance().getVal("jdbc.class"));
 			conn = DriverManager.getConnection(ConfigManager.instance().getVal("jdbc.conn.url"),
 					ConfigManager.instance().getVal("jdbc.conn.username"),

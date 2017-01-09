@@ -56,17 +56,6 @@ public class baseServlet extends HttpServlet {
 			response.sendRedirect("jsp/dept.jsp");
 		else
 			response.sendRedirect("jsp/index.jsp");
-		// dbname
-		// dept entity = new dept();
-		// request.setCharacterEncoding("utf-8");
-		// entity.setDEPT_ID(Integer.parseInt(request.getParameter("dept_id")));
-		// entity.setDEPT_NAME(request.getParameter("dept_name"));
-		// entity.setDEPT_FID(Integer.parseInt(request.getParameter("dept_fid")));
-		// entity.setDEPT_DESCRIPTION(request.getParameter("dept_desc"));
-		// if (db.update(entity))
-		// response.sendRedirect("jsp/dept.jsp");
-		// else
-		// response.sendRedirect("jsp/index.jsp");
 	}
 
 	public baseEntity getEneity(String dbName, HttpServletRequest request) {
