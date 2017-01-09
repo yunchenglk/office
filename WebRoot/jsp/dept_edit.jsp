@@ -2,6 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="db" class="office.Server.deptService" />
+<%
+	String id = request.getParameter("id");
+	dept entity = new dept();
+	if (id != null) {
+		entity = db.getByID(Integer.parseInt(id));
+	}
+	request.setAttribute("dept", entity);
+%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,13 +17,7 @@
 <title>部门编辑</title>
 </head>
 <body>
-	<%
-		String id = request.getParameter("id");
-		dept entity = new dept();
-		if (id != null) {
-			entity = db.getByID(Integer.parseInt(id));
-		}
-	%>
+
 	<jsp:include page="top.jsp" />
 	<div class="view-body">
 		<jsp:include page="left.jsp" />
@@ -35,8 +37,7 @@
 				</div>
 				<form name="setp0" action="<%=request.getContextPath()%>/dept.do"
 					method="post" autocomplete="off">
-					<input type="hidden" value="<%=entity.getDept_id()%>"
-						name="dept_id" />
+					<input type="hidden" value="${dept.dept_id }" name="dept_id" />
 					<div class="basic-info-detail clearfix" style="margin-top: 20px;">
 						<div class="unit-style padding-big-lr clearfix">
 							<h4 class="real-name-head margin-large-top">
@@ -47,7 +48,7 @@
 								<p class="content-left-zoon">部门名称</p>
 								<div class="content-right-zoon">
 									<input class="width-main input" type="text" datatype="*"
-										name="dept_name" value="<%=entity.getDept_name()%>">
+										name="dept_name" value="${dept.dept_name}">
 								</div>
 							</div>
 							<div class="normal_licence clearfix">
@@ -64,7 +65,7 @@
 								<div class="content-right-zoon">
 									<textarea
 										class="width-main height-large border-gray-around textarea"
-										name="dept_desc"><%=entity.getDept_description()%></textarea>
+										name="dept_desc">${dept.dept_description }</textarea>
 								</div>
 							</div>
 
@@ -97,6 +98,7 @@
 								+ n.dept_name + "</option>";
 					});
 					$("#sel_fid").html(options);
+					$("#sel_fid").val(${dept.dept_fid})
 				}
 
 			})

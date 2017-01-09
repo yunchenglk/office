@@ -3,6 +3,8 @@
 <%@page import="office.util.Page"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <jsp:useBean id="db" class="office.Server.deptService" />
 <jsp:useBean id="pager" class="office.util.Page" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,7 +31,9 @@
 			pageIndex = countPage;
 
 		List<dept> list = db.getPage(pageIndex, pageSize);
+		//request.setAttribute("list", list);
 	%>
+	<x:set var="list" value="<%=list%>" scope="request" />
 	<jsp:include page="top.jsp" />
 	<div class="view-body">
 		<jsp:include page="left.jsp" />
@@ -64,49 +68,32 @@
 								<div class="th w30">部门简介</div>
 								<div class="th w20">操作</div>
 							</div>
-							<%
-								for (dept entity : list) {
-							%>
-							<div class="tr clearfix border-bottom-none">
-								<div class="td w10"><%=entity.getDept_id()%></div>
-								<div class="td w20"><%=entity.getDept_name()%>
-								</div>
-								<div class="td w20"><%=entity.getDept_fid()%></div>
-								<div class="td w30"><%=entity.getDept_description()%></div>
-								<div class="td w20">
-									<a
-										href="<%=request.getContextPath()%>/jsp/dept_edit.jsp?id=<%=entity.getDept_id()%>"
-										class="button-word2 ">编辑</a> <a href="javascript:void(0);"
-										msg="确定删除此信息吗？" callback="del(<%=entity.getDept_id()%>);"
-										data-id="" class="button-word2 btn_ajax_confirm">删除</a>
-								</div>
-							</div>
-							<%
-								}
-							%>
-						</div>
-					</div>
-					<div class="show-page padding-big-right">
-						<div class="page">
-							<div class="page">
-								<ul class="offcial-page margin-top margin-big-right">
-									<li>共<em class="margin-small-left margin-small-right"><%=totalCount%></em>条数据
-									</li>
-									<li>每页显示<em class="margin-small-left margin-small-right"><%=pageSize%></em>条
-									</li>
+							<x:forEach var="entity" items="${list}" varStatus="status">
 
-									<li><a class="next disable"
-										href="<%=request.getContextPath()%>/jsp/dept.jsp?pageIndex=<%=pageIndex - 1%>">上一页</a></li>
-									<li></li>
-									<li><a class="next disable"
-										href="<%=request.getContextPath()%>/jsp/dept.jsp?pageIndex=<%=pageIndex + 1%>">下一页</a></li>
-									<li><span class="fl">共<em
-											class="margin-small-left margin-small-right"><%=countPage%></em>页
-									</span></li>
-								</ul>
-							</div>
+								<div class="tr clearfix border-bottom-none">
+									<div class="td w10">${entity.dept_id }</div>
+									<div class="td w20">${entity.dept_name }</div>
+									<div class="td w20">${entity.dept_fid }</div>
+									<div class="td w30">
+										<x:out value="${entity.dept_description }" default="无" />
+									</div>
+									<div class="td w20">
+										<a
+											href="<%=request.getContextPath()%>/jsp/dept_edit.jsp?id=${entity.dept_id }"
+											class="button-word2 ">编辑</a> <a href="javascript:void(0);"
+											msg="确定删除此信息吗？" callback="del(${entity.dept_id });"
+											class="button-word2 btn_ajax_confirm">删除</a>
+									</div>
+								</div>
+							</x:forEach>
 						</div>
 					</div>
+					<x:import url="rollPage.jsp">
+						<x:param name="totalCount" value="<%=Integer.toString(totalCount)%>"></x:param>
+						<x:param name="pageIndex" value="<%=Integer.toString(pageIndex)%>"></x:param>
+						<x:param name="pageSize" value="<%=Integer.toString(pageSize)%>"></x:param>
+						<x:param name="countPage" value="<%=Integer.toString(countPage)%>"></x:param>
+					</x:import>
 				</div>
 			</div>
 		</div>

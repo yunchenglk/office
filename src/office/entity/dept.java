@@ -1,50 +1,35 @@
 package office.entity;
 
-import java.io.Serializable;
-
-public class dept implements Serializable {
-	private int dept_id;
-	private String dept_name;
-	private int dept_fid;
-	private String dept_description;
-
-	public dept() {
-		dept_id = 0;
-		dept_name = "";
-		dept_fid = 0;
-		dept_description = "";
+public class dept extends baseEntity {
+	private int DEPT_ID;
+	private String DEPT_NAME;
+	private int DEPT_FID;
+	private String DEPT_DESCRIPTION;
+	public int getDEPT_ID() {
+		return DEPT_ID;
+	}
+	public void setDEPT_ID(int dEPT_ID) {
+		DEPT_ID = dEPT_ID;
+	}
+	public String getDEPT_NAME() {
+		return DEPT_NAME;
+	}
+	public void setDEPT_NAME(String dEPT_NAME) {
+		DEPT_NAME = dEPT_NAME;
+	}
+	public int getDEPT_FID() {
+		return DEPT_FID;
+	}
+	public void setDEPT_FID(int dEPT_FID) {
+		DEPT_FID = dEPT_FID;
+	}
+	public String getDEPT_DESCRIPTION() {
+		return DEPT_DESCRIPTION;
+	}
+	public void setDEPT_DESCRIPTION(String dEPT_DESCRIPTION) {
+		DEPT_DESCRIPTION = dEPT_DESCRIPTION;
 	}
 
-	public int getDept_id() {
-		return dept_id;
-	}
-
-	public void setDept_id(int dept_id) {
-		this.dept_id = dept_id;
-	}
-
-	public String getDept_name() {
-		return dept_name;
-	}
-
-	public void setDept_name(String dept_name) {
-		this.dept_name = dept_name;
-	}
-
-	public int getDept_fid() {
-		return dept_fid;
-	}
-
-	public void setDept_fid(int dept_fid) {
-		this.dept_fid = dept_fid;
-	}
-
-	public String getDept_description() {
-		return dept_description;
-	}
-
-	public void setDept_description(String dept_description) {
-		this.dept_description = dept_description;
-	}
+	 
 
 }

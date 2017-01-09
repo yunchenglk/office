@@ -11,7 +11,7 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
+	</welcome-file-list> 
 	<servlet>
 		<servlet-name>deptAdd</servlet-name>
 		<servlet-class>office.web.servlet.deptServlet</servlet-class>
@@ -19,5 +19,5 @@
 	<servlet-mapping>
 		<servlet-name>deptAdd</servlet-name>
 		<url-pattern>/dept.do</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 </web-app>

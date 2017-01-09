@@ -54,6 +54,8 @@ public class deptDao extends baseDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			this.closeResouce();
 		}
 		return list;
 	}
@@ -74,6 +76,8 @@ public class deptDao extends baseDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			this.closeResouce();
 		}
 		return list;
 	}
