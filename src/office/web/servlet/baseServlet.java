@@ -55,7 +55,7 @@ public class baseServlet extends HttpServlet {
 		if (db.update(de))
 			response.sendRedirect("jsp/dept.jsp");
 		else
-			response.sendRedirect("jsp/index.jsp"); 
+			response.sendRedirect("jsp/index.jsp");
 		// dbname
 		// dept entity = new dept();
 		// request.setCharacterEncoding("utf-8");
@@ -72,9 +72,10 @@ public class baseServlet extends HttpServlet {
 	public baseEntity getEneity(String dbName, HttpServletRequest request) {
 		baseEntity entity = null;
 		try {
+
 			Class cls = Class.forName("office.entity." + dbName.toUpperCase());
 			entity = (baseEntity) cls.newInstance();
-
+			entity.setDBNAME(dbName.toUpperCase());
 			Field[] fils = cls.getDeclaredFields();
 			for (Field f : fils) {
 				String name = f.getName().toUpperCase();
