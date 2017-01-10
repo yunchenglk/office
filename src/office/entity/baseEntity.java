@@ -7,8 +7,8 @@ public class baseEntity {
 		return DBNAME;
 	}
 
-	public void setDBNAME(String dBNAME) {
-		DBNAME = dBNAME;
+	public baseEntity() {
+		String clsName = this.getClass().toString();
+		DBNAME = clsName.substring(clsName.lastIndexOf('.') + 1);
 	}
-	
 }

@@ -61,10 +61,9 @@ public class baseServlet extends HttpServlet {
 	public baseEntity getEneity(String dbName, HttpServletRequest request) {
 		baseEntity entity = null;
 		try {
-
 			Class cls = Class.forName("office.entity." + dbName.toUpperCase());
 			entity = (baseEntity) cls.newInstance();
-			entity.setDBNAME(dbName.toUpperCase());
+			//entity.setDBNAME(dbName.toUpperCase());
 			Field[] fils = cls.getDeclaredFields();
 			for (Field f : fils) {
 				String name = f.getName().toUpperCase();
@@ -96,8 +95,6 @@ public class baseServlet extends HttpServlet {
 					}
 				}
 			}
-			System.out.println("123");
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
