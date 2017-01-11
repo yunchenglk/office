@@ -103,7 +103,11 @@
 				t : 'del',
 				id : id
 			}, function(data) {
-				alert(data);
+				if (data.status)
+					alert("操作成功");
+				else
+					alert("操作失败");
+				location.href = data.url;
 			})
 		}
 	</script>

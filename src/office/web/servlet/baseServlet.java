@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import office.Server.deptService;
 import office.entity.baseEntity;
 import office.entity.DEPT;
+import office.entity.ResultBase;
 
 @SuppressWarnings("serial")
 public class baseServlet extends HttpServlet {
@@ -34,10 +36,9 @@ public class baseServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			int ID = Integer.parseInt(id);
 			boolean result = db.delByID(ID);
-			if (result)
-				response.getWriter().append("操作成功");
-			else
-				response.getWriter().append("操作成功");
+			ResultBase resuBase = new ResultBase(result);
+			resuBase.setUrl("dept.jsp");
+			response.getWriter().print(JSONObject.fromObject(resuBase));
 			break;
 		default:
 			break;
@@ -63,7 +64,7 @@ public class baseServlet extends HttpServlet {
 		try {
 			Class cls = Class.forName("office.entity." + dbName.toUpperCase());
 			entity = (baseEntity) cls.newInstance();
-			//entity.setDBNAME(dbName.toUpperCase());
+			// entity.setDBNAME(dbName.toUpperCase());
 			Field[] fils = cls.getDeclaredFields();
 			for (Field f : fils) {
 				String name = f.getName().toUpperCase();

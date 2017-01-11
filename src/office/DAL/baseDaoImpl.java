@@ -23,7 +23,7 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	}
 
 	/**
-	 * Ìí¼Ó 
+	 * Ìí¼Ó
 	 * 
 	 * @param entity
 	 * @return
@@ -127,7 +127,6 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		} finally {
 			this.closeResouce();
 		}
-
 		return updateRow > 0;
 	}
 
@@ -190,7 +189,7 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 			ResultSet rs = this.executeQuery(sql.toString(), params);
 			list = takeListT(rs);
 
-		} catch (InstantiationException | IllegalAccessException e) { 
+		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 
@@ -246,17 +245,21 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	public T Single(int id) {
 		try {
 			t = clazz.newInstance();
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		} catch (InstantiationException | IllegalAccessException e) { 
+		 
+			StringBuffer columns = new StringBuffer();
+			String parMaryKey = "";
+			for (Field f : t.getClass().getDeclaredFields()) {
+				if (f.isAnnotationPresent(Cloumn.class)) {
+					parMaryKey = f.getName();
+				}
+			}
+			String Sql = "SELECT * FROM " + t.getDBNAME() + " WHERE " + parMaryKey + " = ?";
+			System.out.println(Sql);
+			Object[] params = { id };
+			ResultSet rs = this.executeQuery(Sql.toString(), params);
+			t = takeListT(rs).get(0);
+
+		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return t;
