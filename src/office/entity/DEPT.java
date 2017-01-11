@@ -1,7 +1,9 @@
 package office.entity;
 
 public class DEPT extends baseEntity {
-	private Integer DEPT_ID = 0;
+
+	@Cloumn
+	private Integer DEPT_ID = 0; 
 	private String DEPT_NAME = "";
 	private Integer DEPT_FID = 0;
 	private String DEPT_DESCRIPTION = "";
