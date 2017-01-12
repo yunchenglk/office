@@ -4,7 +4,6 @@
 <jsp:useBean id="db" class="office.Server.deptService" />
 <%
 	String id = request.getParameter("id");
-
 	DEPT entity = new DEPT();
 	if (id != null) {
 		entity = db.getByID(Integer.parseInt(id));
@@ -38,7 +37,8 @@
 				</div>
 				<form name="setp0" action="../add" method="post" autocomplete="off">
 					<input type="hidden" name="dbname" value="dept" /> <input
-						type="hidden" value="${dept.DEPT_ID }" name="DEPT_ID" />
+						type="hidden" name="url" value="jsp/dept.jsp" /> <input type="hidden"
+						value="${dept.DEPT_ID }" name="DEPT_ID" />
 					<div class="basic-info-detail clearfix" style="margin-top: 20px;">
 						<div class="unit-style padding-big-lr clearfix">
 							<h4 class="real-name-head margin-large-top">
@@ -100,8 +100,6 @@
 					});
 					$("#sel_fid").html(options);
 					$("#sel_fid").val(${dept.DEPT_FID} );
-				}
-
 			})
 		})
 	</script>
