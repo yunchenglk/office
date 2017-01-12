@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+import office.entity.ResultBase;
 import office.entity.baseEntity;
 
 /**
@@ -22,18 +24,37 @@ public class AddServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=utf-8");
 		try {
 			String dbname = req.getParameter("dbname");
 			String backUrl = req.getParameter("url");
-			System.out.println("office.Server." + dbname.toLowerCase() + "ServiceImpl");
 			Class cls = Class.forName("office.Server." + dbname.toLowerCase() + "ServiceImpl");
-			System.out.println(cls.getDeclaredMethods().length);
-			for (Method m : cls.getDeclaredMethods()) {
-				System.out.println(m);
-			}
+			Object db = cls.newInstance();
+			Method m = cls.getMethod("Save", baseEntity.class);
+			baseEntity entity = getEneity(dbname, req);
+			Object o = m.invoke(db, entity); 
+			boolean isOk = Boolean.parseBoolean(o.toString()); 
+			ResultBase resuBase = new ResultBase(isOk);
+			resuBase.setUrl(backUrl);
+			resuBase.setMsg(isOk ? "操作成功" : "操作失败");
+			resp.getWriter().print(JSONObject.fromObject(resuBase));
+			resp.getWriter().flush();
+			resp.getWriter().close();
 
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
 

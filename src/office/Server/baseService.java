@@ -5,8 +5,7 @@ import java.util.List;
 import office.dao.deptDao;
 import office.entity.DEPT;
 
-public class baseService {
-	
+public class baseService {  
 	private static deptDao dao;
 
 	public baseService() {

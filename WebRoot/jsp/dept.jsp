@@ -22,7 +22,7 @@
 			pageindex = "1";
 		int pageIndex = Integer.parseInt(pageindex);
 		int totalCount = db.getRowCount();
-		int pageSize = 2;
+		int pageSize = 8;
 		pager.setPageIndex(pageIndex);
 		pager.setPageSize(pageSize);
 		pager.setRowCount(db.getRowCount());

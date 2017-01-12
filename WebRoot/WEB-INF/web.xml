@@ -12,26 +12,20 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<!-- <servlet> -->
-	<!-- <servlet-name>Add</servlet-name> -->
-	<!-- <servlet-class>office.web.servlet.baseServlet</servlet-class> -->
-	<!-- </servlet> -->
-	<!-- <servlet-mapping> -->
-	<!-- <servlet-name>Add</servlet-name> -->
-	<!-- <url-pattern>/add</url-pattern> -->
-	<!-- <url-pattern>/post</url-pattern> -->
-	<!-- </servlet-mapping> -->
-
 	<servlet>
-		<servlet-name>Add</servlet-name>
+		<servlet-name>ADD</servlet-name>
 		<servlet-class>office.web.servlet.AddServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Add</servlet-name>
+		<servlet-name>ADD</servlet-name>
 		<url-pattern>/add</url-pattern>
 	</servlet-mapping>
-
-
-
-
+	<servlet>
+		<servlet-name>GET</servlet-name>
+		<servlet-class>office.web.servlet.getServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GET</servlet-name>
+		<url-pattern>/get</url-pattern>
+	</servlet-mapping>
 </web-app>

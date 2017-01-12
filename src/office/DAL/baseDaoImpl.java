@@ -7,6 +7,7 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 
 import office.entity.Cloumn;
@@ -20,6 +21,7 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	public baseDaoImpl() {
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		clazz = (Class<T>) pt.getActualTypeArguments()[0];
+		
 	}
 
 	/**
@@ -29,9 +31,11 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	 * @return
 	 */
 	public Boolean Save(T entity) {
+		
 		int updateRow = 0;
 		try {
-			Field[] fields = t.getClass().getDeclaredFields();
+			t = clazz.newInstance();
+			Field[] fields = t.getClass().getDeclaredFields(); 
 			StringBuffer sql = new StringBuffer();
 			StringBuffer columns = new StringBuffer();
 			ArrayList list = new ArrayList();
@@ -54,9 +58,8 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 				sql.append("?,");
 			}
 			sql.delete(sql.length() - 1, sql.length());
-			sql.append(" )");
-			System.out.println(sql.toString());
-			updateRow = this.executeUpdate(sql.toString(), list.toArray());
+			sql.append(" )"); 
+			updateRow = this.executeUpdate(sql.toString(), list.toArray()); 
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -66,6 +69,8 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) { 
 			e.printStackTrace();
 		} finally {
 			this.closeResouce();
@@ -130,6 +135,7 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		return updateRow > 0;
 	}
 
+	public Boolean Update(Dictionary<String, Object> obj)
 	/**
 	 * 获取信息总数
 	 * 

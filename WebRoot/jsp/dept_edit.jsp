@@ -15,9 +15,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>部门编辑</title>
+
 </head>
 <body>
-
 	<jsp:include page="top.jsp" />
 	<div class="view-body">
 		<jsp:include page="left.jsp" />
@@ -35,9 +35,10 @@
 					</div>
 					<p style="width: 56px; left: 105px;" class="solid-slider"></p>
 				</div>
-				<form name="setp0" action="../add" method="post" autocomplete="off">
+				<form id="form" name="setp0" action="../add" method="post"
+					autocomplete="off">
 					<input type="hidden" name="dbname" value="dept" /> <input
-						type="hidden" name="url" value="jsp/dept.jsp" /> <input type="hidden"
+						type="hidden" name="url" value="dept.jsp" /> <input type="hidden"
 						value="${dept.DEPT_ID }" name="DEPT_ID" />
 					<div class="basic-info-detail clearfix" style="margin-top: 20px;">
 						<div class="unit-style padding-big-lr clearfix">
@@ -57,6 +58,7 @@
 									<p class="content-left-zoon">上级部门</p>
 									<div class="content-right-zoon">
 										<select class="width-main input" id="sel_fid" name="DEPT_FID">
+											<option value="0">顶级部门</option>
 										</select>
 									</div>
 								</div>
@@ -85,11 +87,26 @@
 	</div>
 	<script type="text/javascript">
 		$(function() {
+			//ajax提交表单
+			$("#form").submit(function() {
+				$(this).ajaxSubmit({
+					dataType : "json",
+					success : function(data) {
+						alert(data.msg);
+						if (data.status) {
+							location.href = data.url;
+						}
+					}
+				});
+				return false;
+			});
+			//动态获取所有顶级部门
 			$.ajax({
 				url : '../dept.do',
 				type : 'GET',
 				data : {
-					t : 'getFid'
+					t : 'get',
+					v : Math.random()
 				},
 				dataType : "json",
 				success : function(data) {
@@ -100,8 +117,9 @@
 					});
 					$("#sel_fid").html(options);
 					$("#sel_fid").val(${dept.DEPT_FID} );
-			})
-		})
+				}
+			});
+		}) 
 	</script>
 </body>
 </html>
