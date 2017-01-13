@@ -1,9 +1,16 @@
 package test;
 
+import java.util.List;
+
+import office.Server.deptServiceImpl;
+import office.entity.DEPT;
+
 public class Test {
 	public static void main(String[] args) {
-		Object b = "true";
-		Boolean bb =Boolean.parseBoolean(b.toString());
-		System.out.println(bb);
+		deptServiceImpl db = new deptServiceImpl();
+		List<DEPT> list = db.getPageList(1, 10); 
+		for(DEPT d : list){
+			System.out.println(d.getDEPT_NAME());
+		}
 	}
 }

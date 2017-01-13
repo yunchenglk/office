@@ -1,12 +1,12 @@
 <%@page import="office.entity.DEPT"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="db" class="office.Server.deptService" />
+<jsp:useBean id="db" class="office.Server.deptServiceImpl" />
 <%
 	String id = request.getParameter("id");
 	DEPT entity = new DEPT();
 	if (id != null) {
-		entity = db.getByID(Integer.parseInt(id));
+		entity = db.Single(Integer.parseInt(id));
 	}
 	request.setAttribute("dept", entity);
 %>
@@ -36,7 +36,7 @@
 					<p style="width: 56px; left: 105px;" class="solid-slider"></p>
 				</div>
 				<form id="form" name="setp0" action="../add" method="post"
-					autocomplete="off">
+					autocomplete="on">
 					<input type="hidden" name="dbname" value="dept" /> <input
 						type="hidden" name="url" value="dept.jsp" /> <input type="hidden"
 						value="${dept.DEPT_ID }" name="DEPT_ID" />
@@ -57,7 +57,8 @@
 								<div class="real-name-con height-main margin-top-25 clearfix">
 									<p class="content-left-zoon">上级部门</p>
 									<div class="content-right-zoon">
-										<select class="width-main input" id="sel_fid" name="DEPT_FID">
+										<select class="width-main input dropdown" id="sel_fid"
+											name="DEPT_FID">
 											<option value="0">顶级部门</option>
 										</select>
 									</div>
@@ -105,7 +106,8 @@
 				url : '../dept.do',
 				type : 'GET',
 				data : {
-					t : 'get',
+					dbName:"dept",
+					mName:"",
 					v : Math.random()
 				},
 				dataType : "json",

@@ -14,6 +14,12 @@
 							src="../Images/icon_author.png" width="16" height="16" /></b> <span
 						class="text-normal">部门管理</span>
 				</a></li>
+				<li><a href="Employee.jsp"> <b class="sidebar-icon"><img
+							src="../Images/icon_author.png" width="16" height="16" /></b> <span
+						class="text-normal">员工管理</span>
+				</a></li>
+				
+				
 				<li><a href="webSet.jsp"> <b class="sidebar-icon"><img
 							src="../Images/icon_author.png" width="16" height="16" /></b> <span
 						class="text-normal">站点管理</span>
@@ -62,7 +68,7 @@
 	</div>
 </div>
 <script>
-	$(".sidebar-title").live('click', function() {
+	$(".sidebar-title").on('click', function() {
 		if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
 			$(this).next().slideDown(200);
 			$(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");

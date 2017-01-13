@@ -6,12 +6,9 @@
 <link rel="stylesheet" type="text/css" href="../Css/account.css" />
 <link rel="stylesheet" type="text/css" href="../Css/style.css" />
 <link rel="stylesheet" type="text/css" href="../Css/control_index.css" />
-<script type="text/javascript" src="../Js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../Js/jquery.js"></script>
 <script type="text/javascript" src="../Js/jquery.form.min.js"></script>
 <script type="text/javascript" src="../Js/layer/layer.js"></script>
-<script type="text/javascript" src="../Js/haidao.offcial.general.js"></script>
-<script type="text/javascript" src="../Js/select.js"></script>
-<script type="text/javascript" src="../Js/haidao.validate.js"></script>
 
 <div class="view-topbar">
 	<div class="topbar-console">

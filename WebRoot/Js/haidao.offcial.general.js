@@ -8,7 +8,7 @@ $(function(){
 //	});
 	
 	//下拉
-	$(".dropdown").live('click',function(e){
+	$(".dropdown").on('click',function(e){
 		if($(this).hasClass("open")){
 			$(this).removeClass("open");
 		}else{
@@ -36,7 +36,7 @@ $(function(){
     })
 	}catch(e){}
 	//按钮弹窗
-	$(".btn_ajax_open").live('click',function(){
+	$(".btn_ajax_open").on('click',function(){
 		var panel = ''+$(this).attr('data-panel')+'';
 		var callback = ''+$(this).attr('data-callback')+'';
 		var title = $(this).attr('data-title');
@@ -60,7 +60,7 @@ $(function(){
 		return false;
 	})
 		//确认弹窗
-	$('.btn_ajax_confirm').live('click',function(){
+	$('.btn_ajax_confirm').on('click',function(){
 		var callback = ''+$(this).attr('callback')+'';
 		layer.confirm(''+$(this).attr('msg')+'', {
 		    btn: ['确认','取消'], //按钮
@@ -77,9 +77,9 @@ $(function(){
 });
 
 //全选反选
-$(".check-all").live("click",function() {
+$(".check-all").on("click",function() {
 	$(".ids:visible").prop("checked", this.checked);});
-$(".ids").live("click",function() {
+$(".ids").on("click",function() {
 	var option = $(".ids:visible");
 	option.each(function(i) {
 		if (!this.checked){

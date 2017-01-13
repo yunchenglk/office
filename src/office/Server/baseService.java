@@ -1,41 +1,50 @@
 package office.Server;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import office.dao.deptDao;
-import office.entity.DEPT;
+import office.DAL.baseDaoImpl;
+import office.DAL.deptDao;
+import office.entity.baseEntity;
+import office.inFace.baseDao;
 
-public class baseService {  
-	private static deptDao dao;
+public class baseService<T extends baseEntity> implements baseDao<T> {
+	private baseDaoImpl db;
 
 	public baseService() {
-		dao = new deptDao();
+		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+		Class<T> clazz = (Class<T>) pt.getActualTypeArguments()[0];
+		db = new baseDaoImpl<>(clazz);
 	}
 
-	public boolean update(DEPT entity) {
-		if (entity.getDEPT_ID() == 0)
-			return dao.init(entity);
-		else
-			return dao.update(entity);
+	@Override
+	public Boolean Save(T entity) {
+		return db.Save(entity);
 	}
 
+	@Override
+	public Boolean Update(T entity) {
+		return db.Update(entity);
+	}
+
+	@Override
+	public int getRowCount(String where) {
+		return db.getRowCount(where);
+	}
+
+	@Override
 	public int getRowCount() {
-		return dao.getRowCount();
+		return db.getRowCount();
 	}
 
-	public List<DEPT> getPage(int pageIndex, int pageSize) {
-		return dao.getPageList(pageIndex, pageSize);
+	@Override
+	public List<T> getPageList(int pageIndex, int pageSize) {
+		return db.getPageList(pageIndex, pageSize);
 	}
 
-	public List<DEPT> getFirstList() {
-		return dao.getParentList();
+	@Override
+	public T Single(int id) {
+		return (T)db.Single(id);
 	}
 
-	public boolean delByID(int id) {
-		return dao.delByID(id);
-	}
-
-	public DEPT getByID(int id) {
-		return dao.getByID(id);
-	}
 }

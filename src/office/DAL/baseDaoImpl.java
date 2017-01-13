@@ -12,16 +12,30 @@ import java.util.List;
 
 import office.entity.Cloumn;
 import office.entity.baseEntity;
+import office.inFace.baseDao;
 import office.util.Page;
 
-public class baseDaoImpl<T extends baseEntity> extends DBImpl {
+public class baseDaoImpl<T extends baseEntity> extends DBImpl implements baseDao<T> {
 	private T t;
 	private Class<T> clazz;
 
 	public baseDaoImpl() {
-		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-		clazz = (Class<T>) pt.getActualTypeArguments()[0];
-		
+		try {
+			ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+			clazz = (Class<T>) pt.getActualTypeArguments()[0];
+			t = clazz.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public baseDaoImpl(Class<T> clazz) {
+		try {
+			this.clazz = clazz;
+			t = clazz.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -31,11 +45,10 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	 * @return
 	 */
 	public Boolean Save(T entity) {
-		
 		int updateRow = 0;
 		try {
-			t = clazz.newInstance();
-			Field[] fields = t.getClass().getDeclaredFields(); 
+
+			Field[] fields = t.getClass().getDeclaredFields();
 			StringBuffer sql = new StringBuffer();
 			StringBuffer columns = new StringBuffer();
 			ArrayList list = new ArrayList();
@@ -58,8 +71,8 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 				sql.append("?,");
 			}
 			sql.delete(sql.length() - 1, sql.length());
-			sql.append(" )"); 
-			updateRow = this.executeUpdate(sql.toString(), list.toArray()); 
+			sql.append(" )");
+			updateRow = this.executeUpdate(sql.toString(), list.toArray());
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -69,8 +82,6 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) { 
 			e.printStackTrace();
 		} finally {
 			this.closeResouce();
@@ -87,7 +98,6 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	public Boolean Update(T entity) {
 		int updateRow = 0;
 		try {
-
 			Field[] fields = t.getClass().getDeclaredFields();
 			String parMaryKey = "";
 			Object pkVal = null;
@@ -135,7 +145,7 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		return updateRow > 0;
 	}
 
-	public Boolean Update(Dictionary<String, Object> obj)
+	// public Boolean Update(Dictionary<String, Object> obj)
 	/**
 	 * 获取信息总数
 	 * 
@@ -143,15 +153,17 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	 */
 	public int getRowCount(String where) {
 		int rowCount = 0;
-		String sql = "SELECT COUNT(*) FROM " + t.getDBNAME() + " " + where;
-		Object[] params = {};
-		ResultSet rs = this.executeQuery(sql, params);
 		try {
+			String sql = "SELECT COUNT(*) FROM " + t.getDBNAME() + " " + where;
+			Object[] params = {};
+			ResultSet rs = this.executeQuery(sql, params);
+
 			while (rs.next()) {
 				rowCount = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		} finally {
 			this.closeResouce();
 		}
@@ -173,31 +185,21 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	 */
 	public List<T> getPageList(int pageIndex, int pageSize) {
 		List<T> list = new ArrayList<T>();
-		try {
-			t = clazz.newInstance();
-			ArrayList param = new ArrayList();
-			StringBuffer sql = new StringBuffer();
-			StringBuffer columns = new StringBuffer();
-			for (Field f : t.getClass().getDeclaredFields()) {
-				String name = f.getName().toUpperCase();
-				columns.append(name + ",");
-
-			}
-			// columns.delete(columns.length() - 1, columns.length());
-
-			sql.append("SELECT * FROM (SELECT " + columns + " ROWNUM rn FROM " + t.getDBNAME()
-					+ ") where rn>=? and rn<=?");
-			Page page = new Page();
-			page.setPageIndex(pageIndex);
-			page.setPageSize(pageSize);
-			Object[] params = { page.getStartRow(), page.getEndRow() };
-
-			ResultSet rs = this.executeQuery(sql.toString(), params);
-			list = takeListT(rs);
-
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+		ArrayList param = new ArrayList();
+		StringBuffer sql = new StringBuffer();
+		StringBuffer columns = new StringBuffer();
+		for (Field f : t.getClass().getDeclaredFields()) {
+			String name = f.getName().toUpperCase();
+			columns.append(name + ",");
 		}
+		sql.append("SELECT * FROM (SELECT " + columns + " ROWNUM rn FROM " + t.getDBNAME() + ") where rn>=? and rn<=?");
+		Page page = new Page();
+		page.setPageIndex(pageIndex);
+		page.setPageSize(pageSize);
+		Object[] params = { page.getStartRow(), page.getEndRow() };
+		System.out.println(sql.toString());
+		ResultSet rs = this.executeQuery(sql.toString(), params);
+		list = takeListT(rs);
 
 		return list;
 	}
@@ -206,28 +208,26 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		List<T> list = new ArrayList<T>();
 		try {
 			while (rs.next()) {
-				T emp = clazz.newInstance();
-				for (Field f : emp.getClass().getDeclaredFields()) {
+				T empt = clazz.newInstance();
+				for (Field f : empt.getClass().getDeclaredFields()) {
 					String name = f.getName().toUpperCase();
 					String type = f.getGenericType().toString();
 					Method m;
 					if (type.equals("class java.lang.String")) {
 						String value = rs.getString(name);
 						if (value != null) {
-							m = emp.getClass().getMethod("set" + name, String.class);
-							m.invoke(emp, value);
+							m = empt.getClass().getMethod("set" + name, String.class);
+							m.invoke(empt, value);
 						}
 					}
 					if (type.equals("class java.lang.Integer")) {
 						int value = rs.getInt(name);
-						m = emp.getClass().getMethod("set" + name, Integer.class);
-						m.invoke(emp, value);
+						m = empt.getClass().getMethod("set" + name, Integer.class);
+						m.invoke(empt, value);
 					}
 				}
-				list.add(emp);
+				list.add(empt);
 			}
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -237,6 +237,12 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
@@ -249,25 +255,20 @@ public class baseDaoImpl<T extends baseEntity> extends DBImpl {
 	 * @return
 	 */
 	public T Single(int id) {
-		try {
-			t = clazz.newInstance();
-		 
-			StringBuffer columns = new StringBuffer();
-			String parMaryKey = "";
-			for (Field f : t.getClass().getDeclaredFields()) {
-				if (f.isAnnotationPresent(Cloumn.class)) {
-					parMaryKey = f.getName();
-				}
+		StringBuffer columns = new StringBuffer();
+		String parMaryKey = "";
+		for (Field f : t.getClass().getDeclaredFields()) {
+			if (f.isAnnotationPresent(Cloumn.class)) {
+				parMaryKey = f.getName();
 			}
-			String Sql = "SELECT * FROM " + t.getDBNAME() + " WHERE " + parMaryKey + " = ?";
-			System.out.println(Sql);
-			Object[] params = { id };
-			ResultSet rs = this.executeQuery(Sql.toString(), params);
-			t = takeListT(rs).get(0);
-
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
 		}
+		String Sql = "SELECT * FROM " + t.getDBNAME() + " WHERE " + parMaryKey + " = ?";
+		System.out.println(Sql);
+		Object[] params = { id };
+		ResultSet rs = this.executeQuery(Sql.toString(), params);
+		t = takeListT(rs).get(0);
+
 		return t;
 	}
+
 }
